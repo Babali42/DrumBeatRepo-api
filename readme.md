@@ -1,32 +1,21 @@
-# Scala 3 kata starter
-## Run with sbt
+# DrumBeatRepo API (WIP)
 
-Run tests once with `sbt test`
+## An API to submit track to DrumBeatRepo
 
-Run tests continuously with :
-````
-sbt
-~ test
-````
+Backend API for [DrumBeatRepo](https://github.com/Babali42/DrumBeatRepo).
 
-Run code with `sbt run`
+Handles form submissions and GitHub issue creation.
 
-## Run in Codespaces
+## Stack
 
-This project works out of the box in GitHub Codespaces:
+- Scala 3 / Http4s / Cats Effect
 
-1. Click the **Code** button and choose **Open with Codespaces**.
-2. Once the container loads, they you can run the same commands shown above.
+## Run locally
 
-VSCode pre-installed **extensions**
-- scala-lang.scala
-- scalameta.metals
+```bash
+sbt run
+```
 
-## Run on Nix
-To open nix shell run `nix-shell`
+## Deploy (WIP)
 
-Then you can run the same commands shown above.
-
-## Up-to-date
-
-[renovate](https://github.com/renovatebot/renovate) bot is used for the dependencies to be updated.
+Hosted on Render. Deploys automatically on push to `main`.
