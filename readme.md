@@ -13,7 +13,7 @@ Beat comes from me or friends of mine.
 I think it's too hard for musician to git clone and tutti quanti.
 Musician likes to do music isn't it ?
 
-My idea here is to create an api which will be connected to a beat form (non existing yet) on www.drumbeatrepo.com
+My idea here is to create an api which will be connected to a beat form (non existing yet) on drumbeatrepo
 The api will transform it and prepare it for me and send it by email in a `.zip`.
 
 ## Why scala ?
