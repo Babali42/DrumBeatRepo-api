@@ -1,12 +1,10 @@
 # DrumBeatRepo API (WIP)
 
-## An API to submit track to DrumBeatRepo
-
-Backend API for [DrumBeatRepo](https://github.com/Babali42/DrumBeatRepo).
+## An API to submit beats to drumbeatrepo
 
 ## Why this api ?
 
-www.drumBeatRepo.com aims to be a **beat library**.
+www.drumbeatrepo.com aims to be a **beat library**.
 Then it need to be something people can contribute to.
 
 But I did not get any PR to contribute to the beat database for now.
