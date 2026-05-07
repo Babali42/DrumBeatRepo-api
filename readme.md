@@ -19,7 +19,7 @@ The api will transform it and prepare it for me and send it by email in a `.zip`
 ## Why scala ?
 
 I like this language !
-As I am a begginer in scala every feedback is welcome.
+As I am a beginner in scala every feedback is welcome.
 Especially those about security.
 
 ## What is a beat ?
