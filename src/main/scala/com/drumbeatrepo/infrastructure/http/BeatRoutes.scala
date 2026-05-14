@@ -1,4 +1,4 @@
-package com.drumbeatrepo.routes
+package com.drumbeatrepo.infrastructure.http
 
 import cats.effect.IO
 import org.http4s.*

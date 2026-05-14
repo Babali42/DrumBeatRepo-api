@@ -1,7 +1,6 @@
-package com.drumbeatrepo.routes
+package com.drumbeatrepo.infrastructure.http
 
 import cats.effect.IO
-import com.drumbeatrepo.routes.HealthRoutes
 import munit.CatsEffectSuite
 import org.http4s.*
 import org.http4s.implicits.*
