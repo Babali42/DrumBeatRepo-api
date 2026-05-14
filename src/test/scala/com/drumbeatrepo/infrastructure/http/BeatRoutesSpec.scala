@@ -1,12 +1,13 @@
 package com.drumbeatrepo.infrastructure.http
 
 import cats.effect.IO
-import munit.CatsEffectSuite
 import org.http4s.*
 import org.http4s.implicits.*
 import org.http4s.multipart.*
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
-class BeatRoutesSpec extends CatsEffectSuite:
+class BeatRoutesSpec extends AnyFunSuite with Matchers :
 
   val multipart = Multipart[IO](
     Vector(
@@ -24,7 +25,7 @@ class BeatRoutesSpec extends CatsEffectSuite:
       response <- BeatRoutes.routes.orNotFound.run(request)
       body     <- response.as[String]
     yield
-      assertEquals(response.status, Status.Ok)
+      response.status shouldBe Status.Ok
       assert(body.contains("Gabber"))
       assert(body.contains("Hardcore techno"))
       assert(body.contains("170"))
