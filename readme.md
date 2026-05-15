@@ -39,6 +39,20 @@ sbt run
 curl http://localhost:8080/health
 // ok
 ```
+## Docker
+
+**BUILD**
+```
+sbt package
+docker build -t api .
+```
+
+RUN
+```
+docker run -p 8080:8080 api
+```
+> Error: Unable to initialize main class com.drumbeatrepo.Main
+Caused by: java.lang.NoClassDefFoundError: scala/collection/immutable/List
 
 ## Deploy (TODO)
 
