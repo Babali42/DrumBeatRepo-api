@@ -1,6 +1,7 @@
 ThisBuild / scalaVersion := "3.8.3"
 
 lazy val root = (project in file("."))
+  .enablePlugins(JavaAppPackaging, DockerPlugin)
   .settings(
     name := "api",
     organization := "com.drumbeatrepo",
@@ -13,5 +14,10 @@ lazy val root = (project in file("."))
       "org.eclipse.angus" % "angus-mail" % "2.0.5",
       "org.typelevel" %% "cats-effect-testing-scalatest" % "1.8.0" % Test,
       "org.scalatest" %% "scalatest" % "3.2.20" % Test
-    )
+    ),
+    dockerExposedPorts := Seq(8080),
+    dockerBaseImage := "eclipse-temurin:21",
+    dockerUpdateLatest := true,
+    Docker / packageName := "api",
+    Docker / version := "latest"
   )

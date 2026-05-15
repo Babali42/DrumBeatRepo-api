@@ -39,6 +39,15 @@ sbt run
 curl http://localhost:8080/health
 // ok
 ```
+## Docker
+
+Build and run the Docker image using sbt-native-packager:
+
+```bash
+sbt docker:publishLocal
+
+docker run -p 8080:8080 api:latest
+```
 
 ## Deploy (TODO)
 
