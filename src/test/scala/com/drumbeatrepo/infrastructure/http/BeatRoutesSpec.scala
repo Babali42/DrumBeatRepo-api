@@ -22,7 +22,7 @@ class BeatRoutesSpec extends AnyFunSuite with Matchers :
       request  <- IO.pure(Request[IO](Method.POST, uri"/beat")
         .withEntity(multipart)
         .withHeaders(multipart.headers))
-      response <- BeatRoutes.routes.orNotFound.run(request)
+      response <- BeatRoutes.all[IO].run(request)
       body     <- response.as[String]
     yield
       response.status shouldBe Status.Ok

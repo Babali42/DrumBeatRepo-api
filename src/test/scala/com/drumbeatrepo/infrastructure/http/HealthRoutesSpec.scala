@@ -10,6 +10,6 @@ class HealthRoutesSpec extends AnyFunSuite with Matchers :
     
     test("GET /health returns 200") {
         val request  = Request[IO](Method.GET, uri"/health")
-        val response = HealthRoutes.routes.orNotFound.run(request)
+        val response = HealthRoutes.all[IO].run(request)
         response.map(r => r.status shouldBe Status.Ok)
     }
