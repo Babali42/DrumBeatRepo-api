@@ -36,3 +36,14 @@ class BeatRoutesSpec extends AsyncFunSuite with AsyncIOSpec:
       assert(body.contains("170"))
       assert(logs.exists(_.message.contains("processing beat: label=Gabber")))
   }
+
+  test("POST /beat should fail when fields are missings") {
+    for
+      logger   <- IO.pure(TestingLogger.impl[IO]())
+      given Logger[IO] = logger
+      request <- IO.pure(Request[IO](Method.POST, uri"/beat"))
+      response <- BeatRoutes.all[IO].run(request)
+      body <- response.as[String]
+    yield
+      assert(response.status == Status.UnprocessableContent)
+  }
