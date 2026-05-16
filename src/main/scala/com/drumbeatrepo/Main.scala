@@ -1,13 +1,14 @@
 package com.drumbeatrepo
 
 import cats.effect.{IO, IOApp}
-import cats.implicits.toSemigroupKOps
 import com.comcast.ip4s.{ipv4, port}
-import com.drumbeatrepo.infrastructure.http.{BeatRoutes, HealthRoutes}
+import com.drumbeatrepo.infrastructure.http.HealthRoutes
 import org.http4s.ember.server.EmberServerBuilder
-import org.http4s.server.Router
+import org.typelevel.log4cats.Logger
+import org.typelevel.log4cats.slf4j.Slf4jLogger
 
 object Main extends IOApp.Simple:
+  given Logger[IO] = Slf4jLogger.getLogger[IO]
   
   override def run: IO[Unit] =
     EmberServerBuilder

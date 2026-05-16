@@ -12,8 +12,10 @@ lazy val root = (project in file("."))
       "io.circe" %% "circe-generic" % "0.14.15",
       "org.typelevel" %% "cats-effect" % "3.7.0",
       "org.eclipse.angus" % "angus-mail" % "2.0.5",
+      "ch.qos.logback" % "logback-classic" % "1.5.32",
+      "org.scalatest" %% "scalatest" % "3.2.20" % Test,
       "org.typelevel" %% "cats-effect-testing-scalatest" % "1.8.0" % Test,
-      "org.scalatest" %% "scalatest" % "3.2.20" % Test
+      "org.typelevel" %% "log4cats-testing" % "2.7.0" % Test
     ),
     dockerExposedPorts := Seq(8080),
     dockerBaseImage := "eclipse-temurin:21",

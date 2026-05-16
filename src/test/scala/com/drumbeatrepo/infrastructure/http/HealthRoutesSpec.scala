@@ -1,15 +1,24 @@
 package com.drumbeatrepo.infrastructure.http
 
 import cats.effect.IO
+import cats.effect.testing.scalatest.AsyncIOSpec
+import com.drumbeatrepo.Main.given_Logger_IO
 import org.http4s.*
 import org.http4s.implicits.*
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import org.scalatest.funsuite.AsyncFunSuite
+import org.typelevel.log4cats.Logger
+import org.typelevel.log4cats.testing.TestingLogger
 
-class HealthRoutesSpec extends AnyFunSuite with Matchers :
-    
+class HealthRoutesSpec extends AsyncFunSuite with AsyncIOSpec:
+
     test("GET /health returns 200") {
-        val request  = Request[IO](Method.GET, uri"/health")
-        val response = HealthRoutes.all[IO].run(request)
-        response.map(r => r.status shouldBe Status.Ok)
+      for
+        logger <- IO.pure(TestingLogger.impl[IO]())
+        given Logger[IO] = logger
+        request = Request[IO](Method.GET, uri"/health")
+        response <- HealthRoutes.all[IO].run(request)
+        logs <- logger.logged
+      yield
+        assert(response.status == Status.Ok)
+        assert(logs.exists(_.message.contains("Server is alive !")))
     }

@@ -1,10 +1,10 @@
 package com.drumbeatrepo.infrastructure.http
 
-import cats.Applicative.ops.toAllApplicativeOps
 import cats.effect.Concurrent
-import cats.implicits.toFlatMapOps
+import cats.syntax.all.*
 import org.http4s.*
 import org.http4s.dsl.Http4sDsl
+import org.typelevel.log4cats.Logger
 
 object BeatRoutes:
 
@@ -16,23 +16,26 @@ object BeatRoutes:
   : Concurrent is a context bound, shorthand for an implicit Concurrent[F] parameter. It means "I need F to have a Concurrent instance", which gives you things like async execution, fibers, and cancellation.
   HttpApp[F] is the return type — essentially a function Request[F] => F[Response[F]].
    */
-  def all[F[_] : Concurrent]: HttpApp[F] =
+  def all[F[_] : {Concurrent, Logger}]: HttpApp[F] =
     val dsl = Http4sDsl[F]
     import dsl.*
 
     val routes = HttpRoutes.of[F]:
       case req@POST -> Root / "beat" =>
         req.decodeWith(EntityDecoder.multipart[F], strict = false) { multipart =>
-          def field(name: String) =
-            multipart.parts.find(_.name == Some(name)).map(_.bodyText.compile.string)
+          val parts = multipart.parts
+          val label = parts.find(_.name == Some("label")).map(_.bodyText.compile.string)
+          val genre = parts.find(_.name == Some("genre")).map(_.bodyText.compile.string)
+          val bpm   = parts.find(_.name == Some("bpm")).map(_.bodyText.compile.string)
 
-          (field("label"), field("genre"), field("bpm")) match
-            case (Some(label), Some(genre), Some(bpm)) =>
+          (label, genre, bpm) match
+            case (Some(l), Some(g), Some(b)) =>
               for
-                l <- label
-                g <- genre
-                b <- bpm
-                r <- Ok(s"""{"label":"$l","genre":"$g","bpm":"$b"}""")
+                labelStr <- l
+                genreStr <- g
+                bpmStr   <- b
+                _ <- Logger[F].info(s"processing beat: label=$labelStr, genre=$genreStr, bpm=$bpmStr")
+                r <- Ok(s"""{"label":"$labelStr","genre":"$genreStr","bpm":"$bpmStr"}""")
               yield r
             case _ => BadRequest("missing fields")
         }
