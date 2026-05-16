@@ -58,10 +58,14 @@ Uses eclipse-temurin:21-jre, copies the staged app, sets PORT=80, exposes port 8
 `docker build -t drumbeatrepo-api . && docker run -p 80:80 drumbeatrepo-api`
 
 
-## Deploy (TODO)
+## Deploy
 
 Hosted on Render. Deploys automatically on push to `main`.
 
+```
+curl https://drumbeatrepo-api.onrender.com/health/
+//ok
+```
 
 
 --- 
