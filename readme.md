@@ -43,11 +43,20 @@ curl http://localhost:8080/health
 
 Build and run the Docker image using sbt-native-packager:
 
-```bash
-sbt docker:publishLocal
+Dockerfile — Multi-stage build:
 
-docker run -p 8080:8080 api:latest
-```
+- Stage 1: 
+
+Uses sbtscala/scala-sbt image to run sbt stage (produces the universal package via sbt-native-packager)
+
+- Stage 2:
+
+Uses eclipse-temurin:21-jre, copies the staged app, sets PORT=80, exposes port 80
+
+- Run with:
+
+`docker build -t drumbeatrepo-api . && docker run -p 80:80 drumbeatrepo-api`
+
 
 ## Deploy (TODO)
 
