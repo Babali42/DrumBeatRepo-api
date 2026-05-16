@@ -2,23 +2,29 @@
 
 ## An API to submit beats to drumbeatrepo
 
-## Why this api ?
+## Main schema
+
+![main-schema.png](main-schema.png)
 
 www.drumbeatrepo.com aims to be a **beat library**.
 Then it need to be something people can contribute to.
 
 But I did not get any PR to contribute to the beat database for now.
+
 Beat comes from me or friends of mine.
 
 I think it's too hard for musician to git clone and tutti quanti.
+
 Musician likes to do music isn't it ?
 
-My idea here is to create an api which will be connected to a beat form (non existing yet) on drumbeatrepo
+My idea here is to create an api which will be connected to a beat form (non existing yet) on drumbeatrepo.
+
 The api will transform it and prepare it for me and send it by email in a `.zip`.
 
 ## Why scala ?
 
 I like this language !
+
 As I am a beginner in scala every feedback is welcome.
 Especially those about security.
 
