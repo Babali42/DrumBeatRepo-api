@@ -2,7 +2,6 @@ package com.drumbeatrepo.infrastructure.http
 
 import cats.effect.IO
 import cats.effect.testing.scalatest.AsyncIOSpec
-import com.drumbeatrepo.Main.given_Logger_IO
 import org.http4s.*
 import org.http4s.implicits.*
 import org.scalatest.funsuite.AsyncFunSuite

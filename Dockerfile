@@ -1,5 +1,8 @@
 FROM sbtscala/scala-sbt:graalvm-community-21.0.2_1.12.8_3.8.2 AS build
 
+ARG EMAIL
+ENV EMAIL=$EMAIL
+
 WORKDIR /app
 COPY project/ project/
 COPY build.sbt .
