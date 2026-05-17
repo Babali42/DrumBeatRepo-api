@@ -6,26 +6,26 @@ def parseEmail(
     rawTo: String,
     rawSubject: String,
     rawBody: String
-): Either[String, Email] =
+): Either[DomainError, Email] =
   for {
     to <- parseTo(rawTo)
     subject <- parseSubject(rawSubject)
     body <- parseBody(rawBody)
   } yield Email(to, subject, body)
 
-def parseSubject(str: String): Either[String, String] = {
+def parseSubject(str: String): Either[DomainError, String] = {
   val s = str.trim
-  Either.cond(s.nonEmpty, s, "Email subject is empty")
+  Either.cond(s.nonEmpty, s, EmptyEmailSubject)
 }
 
-def parseBody(str: String): Either[String, String] = {
+def parseBody(str: String): Either[DomainError, String] = {
   val s = str.trim
-  Either.cond(s.nonEmpty, s, "Email body is empty")
+  Either.cond(s.nonEmpty, s, EmptyEmailBody)
 }
 
-def parseTo(rawTo: String): Either[String, String] = {
+def parseTo(rawTo: String): Either[DomainError, String] = {
   val s = rawTo.trim
-  Either.cond(isValid(s), s, "Email to is invalid")
+  Either.cond(isValid(s), s, InvalidEmail)
 }
 
 def isValid(email: String): Boolean = {

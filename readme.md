@@ -131,6 +131,8 @@ final case class User(
 )
 ```
 
+#### Can return DomainError in a Either structure.
+
 #### `UserError.scala`
 
 ```scala
