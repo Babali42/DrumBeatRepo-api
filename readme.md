@@ -61,8 +61,7 @@ Uses eclipse-temurin:21-jre, copies the staged app, sets PORT=80, exposes port 8
 
 - Run with:
 
-`docker build -t drumbeatrepo-api . && docker run -p 80:80 drumbeatrepo-api`
-
+`docker build -t drumbeatrepo-api . && docker run -p 80:80 -e EMAIL=hello@example.com drumbeatrepo-api`
 
 ## Deploy
 
