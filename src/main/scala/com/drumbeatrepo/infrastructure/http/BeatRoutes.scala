@@ -24,17 +24,19 @@ object BeatRoutes:
       case req@POST -> Root / "beat" =>
         req.decodeWith(EntityDecoder.multipart[F], strict = false) { multipart =>
           val parts = multipart.parts
-          val label = parts.find(_.name == Some("label")).map(_.bodyText.compile.string)
-          val genre = parts.find(_.name == Some("genre")).map(_.bodyText.compile.string)
-          val bpm   = parts.find(_.name == Some("bpm")).map(_.bodyText.compile.string)
+          val label = parts.find(_.name.contains("label")).map(_.bodyText.compile.string)
+          val bpm   = parts.find(_.name.contains("bpm")).map(_.bodyText.compile.string)
+          val genre = parts.find(_.name.contains("genre")).map(_.bodyText.compile.string)
+          val contributor = parts.find(_.name.contains("contributor")).map(_.bodyText.compile.string)
 
-          (label, genre, bpm) match
-            case (Some(l), Some(g), Some(b)) =>
+          (label, bpm, genre, contributor) match
+            case (Some(label), Some(bpm), genre, contributor) =>
               for
-                labelStr <- l
-                genreStr <- g
-                bpmStr   <- b
-                _ <- Logger[F].info(s"processing beat: label=$labelStr, genre=$genreStr, bpm=$bpmStr")
+                labelStr <- label
+                bpmStr   <- bpm
+                genreStr <- genre.sequence
+                contributor <- contributor.sequence
+                _ <- Logger[F].info(s"processing beat: label=$labelStr, ${genre.map(x => s"genre=$x").getOrElse("")}, bpm=$bpmStr, ${contributor.map(x => s"contributor=$x").getOrElse("")}")
                 r <- Ok(s"""{"label":"$labelStr","genre":"$genreStr","bpm":"$bpmStr"}""")
               yield r
             case _ => BadRequest("missing fields")
